@@ -15,6 +15,15 @@ print(output)
 >>> 'Returned output\n'
 ```
 
+## 查看电池状态
+Dump all parameters for all objects
+
+```upower -d``` 
+
+Show information about object path
+
+```upower -i /org/freedesktop/UPower/devices/battery_BAT0```
+
 ## Vim 配置
 
 Edit `vim /etc/vim/vimrc` (or `vim ~/.vimrc`) to config vim.
