@@ -25,6 +25,15 @@ rm听起来就好危险，要是不小心把真正存在的数据也删了呢？
 
 ```unlink 快捷方式```
 
+samba 允许链接 [Accessing symbolic links through Samba](https://access.redhat.com/solutions/54407)
+
+```
+[global]
+follow symlinks = yes
+unix extensions = no
+wide links = yes
+```
+
 ## 查看电池状态
 Dump all parameters for all objects
 
