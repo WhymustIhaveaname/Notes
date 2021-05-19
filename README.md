@@ -1,7 +1,7 @@
 # Notes
 各种记不住的命令
 
-## 执行 shell/bash 命令
+## Python 执行 shell/bash 命令
 
 只执行不要返回值
 ```
@@ -14,6 +14,16 @@ output=stream.read()
 print(output)
 >>> 'Returned output\n'
 ```
+
+## Links
+
+注意下面这个命令中的"要建立的快捷方式"是不需要提前建立的，`ln`会帮你创建
+
+```ln -s 已经存在的文件 要建立的快捷方式```
+
+rm听起来就好危险，要是不小心把真正存在的数据也删了呢？
+
+```unlink 快捷方式```
 
 ## 查看电池状态
 Dump all parameters for all objects
