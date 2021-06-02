@@ -34,6 +34,20 @@ unix extensions = no
 wide links = yes
 ```
 
+## Ubuntu DNS
+
+```
+sudo systemctl stop systemd-resolved.service
+sudo systemctl disable systemd-resolved.service
+sudo systemctl mask systemd-resolved.service
+sudo rm /etc/resolv.conf
+sudo vi /etc/NetworkManager/NetworkManager.conf
+(add in "[main]") dns=none #NetworkManager will not modify resolv.conf
+sudo systemctl restart network-manager.service
+```
+See [NetworkManager.conf.(5)](https://manpages.debian.org/unstable/network-manager/NetworkManager.conf.5.en.html) for other configurations.
+
+
 ## 查看电池状态
 Dump all parameters for all objects
 
