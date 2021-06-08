@@ -18,6 +18,11 @@ print(output)
 ## Multiprocessing Collecting Data
 
 ```
+import torch,copy,pickle,tempfile,os
+#from multiprocessing import Process,Queue
+from torch.multiprocessing import Process,Queue
+torch.multiprocessing.set_start_method('spawn')
+
 def gen_data(paras):
     data=[(torch.rand(100,100),torch.rand(10)) for i in range(1000)]
     # save file to tmp
