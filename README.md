@@ -15,6 +15,33 @@ print(output)
 >>> 'Returned output\n'
 ```
 
+## Multiprocessing Collecting Data
+
+```
+def gen_data(paras):
+    data=[(torch.rand(100,100),torch.rand(10)) for i in range(1000)]
+    # save file to tmp
+    fd,fname=tempfile.mkstemp(suffix='.mydata.tmp',prefix='',dir='/tmp')
+    with open(fd,"wb") as f:
+        pickle.dump(train_datas,f)
+    data_q.put((fd,fname))
+    
+def daemon():
+    data_q=Queue()
+    plist=[]
+    for i in range(4):
+        plist.append(Process(target=gen_data,args=(paras)))
+        plist[-1].start()
+    rlist=[]
+    for p in plist:
+        p.join()
+        fd,fname=data_q.get(False)
+        with open(fname,"rb") as f:
+            rlist+=pickle.load(f)
+        os.unlink(fname) # delete the file
+    return rlist
+```
+
 ## Links
 
 注意下面这个命令中的"要建立的快捷方式"是不需要提前建立的，`ln`会帮你创建
