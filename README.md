@@ -18,32 +18,35 @@ print(output)
 ## Multiprocessing Collecting Data
 
 ```
-import torch,copy,pickle,tempfile,os
-#from multiprocessing import Process,Queue
-from torch.multiprocessing import Process,Queue
-torch.multiprocessing.set_start_method('spawn')
+# daemon 启动若干个 gen_data
+# gen_data 生成训练数据把它们存在临时文件中（/tmp），之后把文件名通过一个 queue 返回
+# Linux 的 /tmp 是挂载在内存上的，所以速度很快
+# daemon 获得文件名后打开 /tmp 中的文件读出训练集然后删除文件（释放内存）
 
-def gen_data(paras):
+import torch,copy,pickle,tempfile,os,copy
+from torch.multiprocessing import Process,Queue # from multiprocessing import Process,Queue
+torch.multiprocessing.set_start_method('spawn') # 没这个 pytorch 多进程会报错，放在 daemon 的进程中即可，gen_data 的进程不用这句
+
+def gen_data(model,data_q,paras):
     data=[(torch.rand(100,100),torch.rand(10)) for i in range(1000)]
-    # save file to tmp
-    fd,fname=tempfile.mkstemp(suffix='.mydata.tmp',prefix='',dir='/tmp')
+    fd,fname=tempfile.mkstemp(suffix='.mydata.tmp',prefix='',dir='/tmp') # 后缀可以改，方便辨认
     with open(fd,"wb") as f:
-        pickle.dump(train_datas,f)
-    data_q.put((fd,fname))
+        pickle.dump(train_datas,f) # 把训练数据存在临时文件中
+    data_q.put((fd,fname)) # 把文件名通过一个 queue 返回
     
-def daemon():
-    data_q=Queue()
+def daemon(model):
+    data_q=Queue() # 返回文件名的 queue
     plist=[]
     for i in range(4):
-        plist.append(Process(target=gen_data,args=(paras)))
+        plist.append(Process(target=gen_data,args=(copy.deepcopy(model),data_q,paras)))
         plist[-1].start()
     rlist=[]
     for p in plist:
-        p.join()
-        fd,fname=data_q.get(False)
+        p.join() # 等待进程结束
+        fd,fname=data_q.get(False) #读出进程放在 queue 中的文件名
         with open(fname,"rb") as f:
             rlist+=pickle.load(f)
-        os.unlink(fname) # delete the file
+        os.unlink(fname) # 删除文件（释放内存）
     return rlist
 ```
 
