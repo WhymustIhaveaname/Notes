@@ -1,6 +1,44 @@
 # Notes
 各种记不住的命令
 
+## Python 开头写什么？
+
+```
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+import time,sys,traceback,math
+
+LOGLEVEL={0:"DEBUG",1:"INFO",2:"WARN",3:"ERR",4:"FATAL"}
+LOGFILE=sys.argv[0].split(".")
+LOGFILE[-1]="log"
+LOGFILE=".".join(LOGFILE)
+
+def log(msg,l=1,end="\n",logfile=LOGFILE,color=None):
+    """
+        color: "1;33" "1;32"
+    """
+    st=traceback.extract_stack()[-2]
+    lstr=LOGLEVEL[l]
+    #now_str="%s %03d"%(time.strftime("%y/%m/%d %H:%M:%S",time.localtime()),math.modf(time.time())[0]*1000)
+    now_str="%s"%(time.strftime("%y/%b %H:%M:%S",time.localtime()),)
+    perfix="%s [%s,%s:%03d]"%(now_str,lstr,st.name,st.lineno)
+    if color:
+        color="\x1b[%sm"%(color)
+        color_rst="\x1b[m"
+    else:
+        color=""
+        color_rst=""
+    if l<3:
+        tempstr="%s %s%s%s%s"%(perfix,color,str(msg),end,color_rst)
+    else:
+        tempstr="%s %s:\n%s%s"%(perfix,str(msg),traceback.format_exc(limit=5),end)
+    print(tempstr,end="")
+    if l>=1:
+        with open(logfile,"a") as f:
+            f.write(tempstr)
+```
+
 ## Python 执行 shell/bash 命令
 
 只执行不要返回值
@@ -13,6 +51,23 @@ stream=os.popen('echo Returned output')
 output=stream.read()
 print(output)
 >>> 'Returned output\n'
+```
+
+要是想 `ls` 还可以
+
+```
+os.listdir(".")
+```
+
+## ffmpeg
+
+加字幕（软字幕）
+
+```
+# -c copy 表示音频视频和字幕编码都直接复制
+# -metadata:s:s:0 language="English" 给字幕一个名字
+# -metadata:s:s:0 表示第一个字幕
+ffmpeg -i input.mp4 -i subtitles.srt -c copy -metadata:s:s:0 language="English" output.mkv
 ```
 
 ## Links
@@ -37,7 +92,7 @@ wide links = yes
 ## 查看电池状态
 Dump all parameters for all objects
 
-```upower -d``` 
+```upower -d```
 
 Show information about object path
 
