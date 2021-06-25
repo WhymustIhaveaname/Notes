@@ -81,7 +81,7 @@ def gen_data(model,data_q,gpu_num,data_num,other_paras):
     data=[(torch.rand(100,100),torch.rand(10)) for i in range(1000)]
     fd,fname=tempfile.mkstemp(suffix='.mydata.tmp',prefix='',dir='/tmp') # 后缀可以改，方便辨认
     with open(fd,"wb") as f:
-        pickle.dump(train_datas,f) # 把训练数据存在临时文件中
+        pickle.dump(data,f) # 把训练数据存在临时文件中
     data_q.put((fd,fname)) # 把文件名通过一个 queue 返回
 
 def daemon(model):
@@ -91,6 +91,35 @@ def daemon(model):
         plist.append(Process(target=gen_data,args=(copy.deepcopy(model),data_q,gpu_num,data_num,other_paras)))
         plist[-1].start()
     rlist=[]
+    for p in plist:
+        p.join() # 等待进程结束
+        fd,fname=data_q.get(False) #读出进程放在 queue 中的文件名
+        with open(fname,"rb") as f:
+            rlist+=pickle.load(f)
+        os.unlink(fname) # 删除文件（释放内存）
+    return rlist
+```
+
+### 当显存不足时这个技巧可以挤出一个线程
+```
+def gen_data(model,gpu_num,data_num,other_paras):
+    data=[(torch.rand(100,100),torch.rand(10)) for i in range(1000)]
+    return data
+    
+def mob(model,data_q,gpu_num,data_num,other_paras)
+    data=gen_data(model,gpu_num,data_num,other_paras)
+    fd,fname=tempfile.mkstemp(suffix='.mydata.tmp',prefix='',dir='/tmp') # 后缀可以改，方便辨认
+    with open(fd,"wb") as f:
+        pickle.dump(data,f) # 把训练数据存在临时文件中
+    data_q.put((fd,fname)) # 把文件名通过一个 queue 返回
+
+def daemon(model):
+    data_q=Queue()
+    plist=[]
+    for i in range(4):
+        plist.append(Process(target=mob,args=(copy.deepcopy(model),data_q,gpu_num,data_num,other_paras)))
+        plist[-1].start()
+    rlist=gen_data(model,gpu_num,data_num,other_paras) #本来当前线程的 model(用于梯度下降的 model)在生成数据时是闲着的，现在把它也用起来
     for p in plist:
         p.join() # 等待进程结束
         fd,fname=data_q.get(False) #读出进程放在 queue 中的文件名
