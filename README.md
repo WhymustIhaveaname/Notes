@@ -108,10 +108,10 @@ def gen_data(model,gpu_num,data_num,other_paras):
     
 def mob(model,data_q,gpu_num,data_num,other_paras)
     data=gen_data(model,gpu_num,data_num,other_paras)
-    fd,fname=tempfile.mkstemp(suffix='.mydata.tmp',prefix='',dir='/tmp') # 后缀可以改，方便辨认
+    fd,fname=tempfile.mkstemp(suffix='.mydata.tmp',prefix='',dir='/tmp')
     with open(fd,"wb") as f:
-        pickle.dump(data,f) # 把训练数据存在临时文件中
-    data_q.put((fd,fname)) # 把文件名通过一个 queue 返回
+        pickle.dump(data,f)
+    data_q.put((fd,fname))
 
 def daemon(model):
     data_q=Queue()
@@ -121,11 +121,11 @@ def daemon(model):
         plist[-1].start()
     rlist=gen_data(model,gpu_num,data_num,other_paras) #本来当前线程的 model(用于梯度下降的 model)在生成数据时是闲着的，现在把它也用起来
     for p in plist:
-        p.join() # 等待进程结束
-        fd,fname=data_q.get(False) #读出进程放在 queue 中的文件名
+        p.join()
+        fd,fname=data_q.get(False)
         with open(fname,"rb") as f:
             rlist+=pickle.load(f)
-        os.unlink(fname) # 删除文件（释放内存）
+        os.unlink(fname)
     return rlist
 ```
 
