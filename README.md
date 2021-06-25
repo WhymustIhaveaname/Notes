@@ -39,6 +39,14 @@ def log(msg,l=1,end="\n",logfile=LOGFILE,color=None):
             f.write(tempstr)
 ```
 
+## matplotlib 画图
+
+```
+fig,axs=plt.subplots(2,2)
+#fig,((ax1,ax2),(ax3,ax4))=plt.subplots(2,2)
+axs[0, 0].plot(x, y)
+```
+
 ## Python 执行 shell/bash 命令
 
 只执行不要返回值
