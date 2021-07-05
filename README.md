@@ -64,7 +64,6 @@ print(output)
 要是想 `ls` 还可以`os.listdir(".")`
 
 
-
 ## Multiprocessing Collecting Data
 
 ```
@@ -137,6 +136,17 @@ def daemon(model):
 # -metadata:s:s:0 表示第一个字幕
 ffmpeg -i input.mp4 -i subtitles.srt -c copy -metadata:s:s:0 language="English" output.mkv
 ```
+
+## Logrotate
+
+```
+logrotate --help
+    -d, --debug               Don't do anything, just test and print debug messages
+    -f, --force               Force file rotation
+    -v, --verbose             Display messages during rotation
+```
+先测试语法 `logrotate -dv /etc/logrotate.d/configfile`， 再手动执行 `logrotate -fv /etc/logrotate.d/configfile`
+
 
 ## Links
 
