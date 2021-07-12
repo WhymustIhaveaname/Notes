@@ -14,6 +14,25 @@ LOGFILE=sys.argv[0].split(".")
 LOGFILE[-1]="log"
 LOGFILE=".".join(LOGFILE)
 
+def log(msg,l=1,end="\n",logfile=LOGFILE):
+    st=traceback.extract_stack()[-2]
+    lstr=LOGLEVEL[l]
+    #now_str="%s %03d"%(time.strftime("%y/%m/%d %H:%M:%S",time.localtime()),math.modf(time.time())[0]*1000)
+    now_str="%s"%(time.strftime("%y/%b %H:%M:%S",time.localtime()),)
+    perfix="%s [%s,%s:%03d]"%(now_str,lstr,st.name,st.lineno)
+    if l<3:
+        tempstr="%s %s%s"%(perfix,str(msg),end)
+    else:
+        tempstr="%s %s:\n%s%s"%(perfix,str(msg),traceback.format_exc(limit=5),end)
+    print(tempstr,end="")
+    if l>=1:
+        with open(logfile,"a") as f:
+            f.write(tempstr)
+```
+
+想要颜色？
+
+```
 def log(msg,l=1,end="\n",logfile=LOGFILE,color=None):
     """
         color: "1;33" "1;32"
