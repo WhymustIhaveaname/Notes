@@ -199,6 +199,11 @@ sudo systemctl restart network-manager.service
 ```
 See [NetworkManager.conf.(5)](https://manpages.debian.org/unstable/network-manager/NetworkManager.conf.5.en.html) for other configurations.
 
+## Sublime
+
+* add to `hosts`: `127.0.0.1 license.sublimehq.com`
+* add to sublime settings: `"update_check": false`
+
 
 ## 查看电池状态
 Dump all parameters for all objects
