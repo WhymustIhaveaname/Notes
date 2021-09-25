@@ -123,7 +123,7 @@ def daemon(model):
 def gen_data(model,gpu_num,data_num,other_paras):
     data=[(torch.rand(100,100),torch.rand(10)) for i in range(1000)]
     return data
-    
+
 def mob(model,data_q,gpu_num,data_num,other_paras)
     data=gen_data(model,gpu_num,data_num,other_paras)
     fd,fname=tempfile.mkstemp(suffix='.mydata.tmp',prefix='',dir='/tmp')
@@ -153,8 +153,15 @@ def daemon(model):
 # -c copy 表示音频视频和字幕编码都直接复制
 # -metadata:s:s:0 language="English" 给字幕一个名字
 # -metadata:s:s:0 表示第一个字幕
+
 ffmpeg -i input.mp4 -i subtitles.srt -c copy -metadata:s:s:0 language="English" output.mkv
 ```
+
+```
+# -ss 和 -t 开始时间和时长
+ffmpeg -i input.mkv -ss 00:00:07 -t 00:00:18 -c:v h264 output.mp4
+```
+
 
 ## Logrotate
 
@@ -185,6 +192,15 @@ follow symlinks = yes
 unix extensions = no
 wide links = yes
 ```
+
+## 网不好导致 SSH 总断？
+
+`sudo vi /etc/ssh/sshd_config`
+    ```
+    ClientAliveInterval 60
+    ClientAliveCountMax 20
+    ```
+其含义是每 60s 服务器测试一下客户端有没有响应，连续 20 次没响应则关闭 session。这样网再差都不会断啦
 
 ## Ubuntu DNS
 
