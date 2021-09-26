@@ -195,11 +195,11 @@ wide links = yes
 
 ## 网不好导致 SSH 总断？
 
-`sudo vi /etc/ssh/sshd_config`
-    ```
-    ClientAliveInterval 60
-    ClientAliveCountMax 20
-    ```
+`sudo vi /etc/ssh/sshd_config` 更改
+```
+ClientAliveInterval 60
+ClientAliveCountMax 20
+```
 其含义是每 60s 服务器测试一下客户端有没有响应，连续 20 次没响应则关闭 session。这样网再差都不会断啦
 
 ## Ubuntu DNS
