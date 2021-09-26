@@ -215,6 +215,13 @@ sudo systemctl restart network-manager.service
 ```
 See [NetworkManager.conf.(5)](https://manpages.debian.org/unstable/network-manager/NetworkManager.conf.5.en.html) for other configurations.
 
+## 启动至图形化界面 (graphical) 或者命令行 (multi-user)
+
+```
+sudo systemctl set-default graphical.target
+sudo systemctl set-default multi-user.target
+```
+
 ## Sublime
 
 * add to `hosts`: `127.0.0.1 license.sublimehq.com`
