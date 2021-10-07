@@ -164,20 +164,22 @@ ffmpeg -i input.mkv -ss 00:00:07 -t 00:00:18 -c:v h264 output.mp4
 
 ## 系统监视命令
 
-重复执行某一条指令（每 2s 执行一次、每 5s 执行一次）
+* 重复执行某一条指令（每 2s 执行一次、每 5s 执行一次）
 
-    `watch cmd`
-    `watch -n 5 cmd`
+    ```
+    watch cmd
+    watch -n 5 cmd
+    ```
 
-cpu 温度和 gpu 温度，`sed -n '9,11p'` 是截取 9 至 11 行
+* cpu 温度和 gpu 温度，`sed -n '9,11p'` 是截取 9 至 11 行
 
     `watch "sensors coretemp-*; nvidia-smi -q -d TEMPERATURE | sed -n '9,11p'"`
 
-树苺派是否低电压
+* 树苺派是否低电压, more options at [raspberrypi documentation for vcgencmd](https://www.raspberrypi.com/documentation/computers/os.html#vcgencmd).
 
     `watch vcgencmd get_throttled`
 
-实时网速
+* 实时网速
 
     `iftop`
 
