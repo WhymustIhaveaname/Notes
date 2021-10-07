@@ -162,6 +162,26 @@ ffmpeg -i input.mp4 -i subtitles.srt -c copy -metadata:s:s:0 language="English" 
 ffmpeg -i input.mkv -ss 00:00:07 -t 00:00:18 -c:v h264 output.mp4
 ```
 
+## 系统监视命令
+
+重复执行某一条指令（每 2s 执行一次、每 5s 执行一次）
+
+    `watch cmd`
+    `watch -n 5 cmd`
+
+cpu 温度和 gpu 温度，`sed -n '9,11p'` 是截取 9 至 11 行
+
+    `watch "sensors coretemp-*; nvidia-smi -q -d TEMPERATURE | sed -n '9,11p'"`
+
+树苺派是否低电压
+
+    `watch vcgencmd get_throttled`
+
+实时网速
+
+    `iftop`
+
+
 
 ## Logrotate
 
@@ -220,6 +240,14 @@ See [NetworkManager.conf.(5)](https://manpages.debian.org/unstable/network-manag
 ```
 sudo systemctl set-default graphical.target
 sudo systemctl set-default multi-user.target
+```
+
+## do nothing when close the lid
+
+```
+vi /etc/systemd/logind.conf
+modify: HandleLidSwitch=ignore
+systemctl restart systemd-logind
 ```
 
 ## Sublime
