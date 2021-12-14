@@ -1,6 +1,17 @@
 # Notes
 各种记不住的命令
 
+## 停止 Jupyter notebook 的自动补全
+
+不是说自动补全不好，而是经常错，尤其是删除时会多删一个，连括号配对都分不清还是别自动补全了。
+
+解决方法：在 notebook 中运行
+```
+from notebook.services.config import ConfigManager
+c = ConfigManager()
+c.update('notebook', {"CodeCell": {"cm_config": {"autoCloseBrackets": False}}})
+```
+
 ## Python 开头写什么？
 
 ```
