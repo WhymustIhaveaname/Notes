@@ -1,6 +1,9 @@
 # Notes
 各种记不住的命令
 
+* git 快速上手：[git_tutorial.sh](https://github.com/WhymustIhaveaname/Notes/blob/main/git_tutorial.sh)
+* Python 部分：[python-notes.md](https://github.com/WhymustIhaveaname/Notes/blob/main/python-notes.md)
+
 ## Bash 的括号
 
 数字运算用双圆括号、double parentheses、Arithmetic Expansion：`(())`，其他用双方括号`[[]]`，单方括号是垃圾。
