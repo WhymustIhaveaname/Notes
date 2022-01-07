@@ -1,5 +1,5 @@
 # Notes for Python
-各种记不住的命令 —— Python 部分
+各种记不住的命令 Python 部分
 
 ## Python 开头写什么？
 

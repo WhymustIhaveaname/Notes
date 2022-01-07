@@ -55,6 +55,18 @@ ffmpeg -i input.mkv -ss 00:00:07 -t 00:00:18 -c:v h264 output.mp4
 
     `iftop`
 
+## 两台 Linux 之间测网速
+
+一边开启服务器
+```
+iperf -s
+```
+另一边连接
+```
+iperf -c ip
+```
+可选参数：`-p`指定端口，`-u`使用 UDP
+
 ## Logrotate
 
 ```
