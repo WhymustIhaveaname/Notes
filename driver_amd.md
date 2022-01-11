@@ -38,17 +38,27 @@ $ glxinfo -B
 Error: unable to open display
 ```
 
-### Youtube resources
+### Statements
 
-[1] [AMD Radeon 6600XT: Linux Setup Made Easy! by Level1Linux](https://www.youtube.com/watch?v=VSXftsxBpi0)
+Statements|Support by
+----------|----------
+Linux has AMD driver out of box, one needs to install some peripheral softwares.| [1] [4]
+Install mesa.                                                                   | [3] [4]
+Install ROCm.                                                                   | [2] [7]
+Install Vulkan.                                                                 | [6]
+DO NOT install AMD's gpuPro.                                                    | [3] [6]
+
+### Online resources
+
+[1] Youtube: [AMD Radeon 6600XT: Linux Setup Made Easy! by Level1Linux](https://www.youtube.com/watch?v=VSXftsxBpi0)
 
     update Linux firmware using git
 
-[2] [Installing AMD OpenCL ROCm driver Ubuntu 20.04 by Novaspirit Tech](https://www.youtube.com/watch?v=efKjfBkjPlM)
+[2] Youtube: [Installing AMD OpenCL ROCm driver Ubuntu 20.04 by Novaspirit Tech](https://www.youtube.com/watch?v=efKjfBkjPlM)
 
     install AMD OpenCL ROCm
 
-[3] [Installing AMD Radeon GPU mesa drivers on Ubuntu by LinuxH2O](https://www.youtube.com/watch?v=MgfSXjnawYE)
+[3] Youtube: [Installing AMD Radeon GPU mesa drivers on Ubuntu by LinuxH2O](https://www.youtube.com/watch?v=MgfSXjnawYE)
 
     AMD's official driver is always unstable, so we need to install an opensorce one
 
@@ -57,15 +67,15 @@ Error: unable to open display
         # and then apt update & apt upgrade
     ```
 
-[4] [AMD Radeon Ubuntu 20.04 Driver Installation](https://linuxconfig.org/amd-radeon-ubuntu-20-04-driver-installation)
+[4] linuxconfig.org: [AMD Radeon Ubuntu 20.04 Driver Installation](https://linuxconfig.org/amd-radeon-ubuntu-20-04-driver-installation)
 
     * The Open Source AMD Radeon Ubuntu Driver is already installed on your system by default. They’re integrated into Mesa and the Linux kernel.
     (comment: the `mesa` is the same as [3]. However, my ubuntu 20.04 does not have it out of box.)
     * `sudo add-apt-repository ppa:oibaf/graphics-drivers` and then `sudo apt update && sudo apt -y upgrade` (also same as [3])
 
-[5] [AMDGPU-Driver](https://help.ubuntu.com/community/AMDGPU-Driver)
+[5] help.ubuntu.com: [AMDGPU-Driver](https://help.ubuntu.com/community/AMDGPU-Driver)
 
-[6] [Proprietary Drivers vs Open Source | nVidia vs AMD by Chris Titus Tech](https://www.youtube.com/watch?v=0tL4y5Gmol8)
+[6] Youtube: [Proprietary Drivers vs Open Source | nVidia vs AMD by Chris Titus Tech](https://www.youtube.com/watch?v=0tL4y5Gmol8)
 
     * do not install amd's gpupro (this is the same as [3])
     * https://github.com/lutris/docs/blob/master/InstallingDrivers.md
@@ -73,6 +83,6 @@ Error: unable to open display
         sudo add-apt-repository ppa:kisak/kisak-mesa && sudo dpkg --add-architecture i386 && sudo apt update && sudo apt upgrade && sudo apt install libgl1-mesa-dri:i386 mesa-vulkan-drivers mesa-vulkan-drivers:i386
     ```
 
-[7] [OpenCL not working with RX 6700 XT](https://askubuntu.com/questions/1336913/opencl-not-working-with-rx-6700-xt)
+[7] AskUbuntu: [OpenCL not working with RX 6700 XT](https://askubuntu.com/questions/1336913/opencl-not-working-with-rx-6700-xt)
 
     * one should use rocm (as recommanded by [2])
