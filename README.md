@@ -69,14 +69,45 @@ iperf -c ip
 
 ## Logrotate
 
+先测试语法 `logrotate -dv /etc/logrotate.d/configfile`， 再手动执行 `logrotate -fv /etc/logrotate.d/configfile`
+
 ```
 logrotate --help
     -d, --debug               Don't do anything, just test and print debug messages
     -f, --force               Force file rotation
     -v, --verbose             Display messages during rotation
 ```
-先测试语法 `logrotate -dv /etc/logrotate.d/configfile`， 再手动执行 `logrotate -fv /etc/logrotate.d/configfile`
 
+一些样例配置文件
+
+```
+$ cat /etc/logrotate.d/apt
+/var/log/apt/term.log {
+  rotate 12
+  monthly
+  compress
+  missingok
+  notifempty
+}
+$ cat /etc/logrotate.d/dpkg
+/var/log/dpkg.log {
+	monthly
+	rotate 12
+	compress
+	delaycompress
+	missingok
+	notifempty
+	create 644 root root
+}
+```
+
+* compress: Old versions of log files are compressed with gzip(1) by default.
+* nocompress: Old versions of log files are not compressed.
+* delaycompress: Postpone compression of the previous log file to the next rotation cycle. This only has effect when used in combination with compress.
+* missingok: If the log file is missing, go on to the next one without issuing an error message. See also nomissingok.
+* nomissingok: If a log file does not exist, issue an error. This is the default.
+* notifempty: Do not rotate the log if it is empty (this overrides the ifempty option).
+* See https://linux.die.net/man/8/logrotate for more info.
 
 ## Links
 
