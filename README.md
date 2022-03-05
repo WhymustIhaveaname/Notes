@@ -9,7 +9,7 @@
 * 编辑 `cat /etc/iproute2/rt_tables` 仿照已有的格式加入表名，编号不应大于 255
 * `ip route add x.x.x.x via x.x.x.x table xxx`
 * `ip route show table xxx`、`ip route flush table xxx`
-* 使编辑好的路由表生效 `ip rule add table xxx`
+* 使编辑好的路由表生效 `ip rule add table xxx`，检查 `ip rule show`
 
 ## Bash 的括号
 
