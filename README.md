@@ -4,6 +4,13 @@
 * git 快速上手：[git_tutorial.sh](https://github.com/WhymustIhaveaname/Notes/blob/main/git_tutorial.sh)
 * Python 部分：[python-notes.md](https://github.com/WhymustIhaveaname/Notes/blob/main/python-notes.md)
 
+## Linux 多路由表
+
+* 编辑 `cat /etc/iproute2/rt_tables` 仿照已有的格式加入表名，编号不应大于 255
+* `ip route add x.x.x.x via x.x.x.x table xxx`
+* `ip route show table xxx`、`ip route flush table xxx`
+* 使编辑好的路由表生效 `ip rule add table xxx`
+
 ## Bash 的括号
 
 数字运算用双圆括号、double parentheses、Arithmetic Expansion：`(())`，其他用双方括号`[[]]`，单方括号是垃圾。
