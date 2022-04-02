@@ -4,6 +4,19 @@
 * git 快速上手：[git_tutorial.sh](https://github.com/WhymustIhaveaname/Notes/blob/main/git_tutorial.sh)
 * Python 部分：[python-notes.md](https://github.com/WhymustIhaveaname/Notes/blob/main/python-notes.md)
 
+## Ubuntu mount /tmp to RAM
+
+将临时文件夹挂载到内存上有助于延长ssd硬盘寿命，但对我来说是更快的进程间传递数据（是的懒惰的我就是用文件读写做 IPC，但是我的文件在内存里呀）
+```
+sudo ln -s /usr/share/systemd/tmp.mount /etc/systemd/system/
+sudo systemctl enable tmp.mount
+```
+之后再确认下`df -h`应该有一条
+```
+tmpfs           7.8G     0  7.8G   0% /tmp
+```
+表示`/tmp`已经成功挂载到 tmpfs(RAM) 了
+
 ## Linux 多路由表
 
 * 编辑 `cat /etc/iproute2/rt_tables` 仿照已有的格式加入表名，编号不应大于 255
