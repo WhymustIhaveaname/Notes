@@ -68,19 +68,20 @@ axs[0, 0].plot(x, y)
 
 ## Python 执行 shell/bash 命令
 
-只执行不要返回值
-```
-os.system('ls -l')
-```
-获得输出
-```
-stream=os.popen('echo Returned output')
-output=stream.read()
-print(output)
->>> 'Returned output\n'
-```
-
-要是想 `ls` 还可以`os.listdir(".")`
+* 只执行不要返回值
+    ```
+    os.system('ls -l')
+    ```
+* 获得输出
+    ```
+    stream=os.popen('echo Returned output')
+    output=stream.read()
+    print(output)
+    >>> 'Returned output\n'
+    ```
+* 获得输出和返回值?
+    The close method returns None if the subprocess exited successfully, or the subprocess’s return code if there was an error. On POSIX systems, if the return code is positive it represents the return value of the process left-shifted by one byte. If the return code is negative, the process was terminated by the signal given by the negated value of the return code.
+* 要是只想 `ls` 还可以`os.listdir(".")`
 
 
 ## Multiprocessing Collecting Data
