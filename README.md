@@ -4,6 +4,10 @@
 * git 快速上手：[git_tutorial.sh](https://github.com/WhymustIhaveaname/Notes/blob/main/git_tutorial.sh)
 * Python 部分：[python-notes.md](https://github.com/WhymustIhaveaname/Notes/blob/main/python-notes.md)
 
+## iptables port forwarding
+
+[How to: Use iptables for port forwarding](https://www.adamintech.com/how-to-use-iptables-for-port-forwarding/)
+
 ## Ubuntu mount /tmp to RAM
 
 将临时文件夹挂载到内存上有助于延长ssd硬盘寿命，但对我来说是更快的进程间传递数据（是的懒惰的我就是用文件读写做 IPC，但是我的文件在内存里呀）
