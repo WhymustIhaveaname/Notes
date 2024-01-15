@@ -4,6 +4,13 @@
 * git 快速上手：[git_tutorial.sh](https://github.com/WhymustIhaveaname/Notes/blob/main/git_tutorial.sh)
 * Python 部分：[python-notes.md](https://github.com/WhymustIhaveaname/Notes/blob/main/python-notes.md)
 
+## Shorten bash path
+
+Effect: `username@hostname:/etc/ssh$` --> `username@hostname:ssh$` 
+
+open `~/.bashrc` (or `/etc/bachrc` or `/etc/profile`), find `PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '` or `PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '`, replace the `\w` with `\W`.
+
+
 ## iptables port forwarding
 
 [How to: Use iptables for port forwarding](https://www.adamintech.com/how-to-use-iptables-for-port-forwarding/)
