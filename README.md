@@ -4,6 +4,17 @@
 * git 快速上手：[git_tutorial.sh](https://github.com/WhymustIhaveaname/Notes/blob/main/git_tutorial.sh)
 * Python 部分：[python-notes.md](https://github.com/WhymustIhaveaname/Notes/blob/main/python-notes.md)
 
+## Sublime settings
+
+```
+{
+	"auto_match_enabled": false,
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": "all",
+	"tab_size": 4
+}
+```
+
 ## Shorten bash path
 
 Effect: `username@hostname:/etc/ssh$` --> `username@hostname:ssh$` 
